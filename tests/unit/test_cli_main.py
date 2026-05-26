@@ -64,6 +64,21 @@ def test_mcp_list_command(monkeypatch):
     assert result.exit_code == 0
 
 
+def test_mcp_list_command_without_claude_binary(monkeypatch):
+    """MCP --list should not crash if Claude CLI is not installed."""
+    runner = CliRunner()
+
+    monkeypatch.setattr(
+        "superclaude.cli.install_mcp._run_command",
+        lambda *args, **kwargs: (_ for _ in ()).throw(FileNotFoundError()),
+    )
+
+    result = runner.invoke(main, ["mcp", "--list"])
+
+    assert result.exit_code == 0
+    assert "Available MCP Servers" in result.output
+
+
 def test_doctor_success(monkeypatch):
     """Doctor should exit successfully when all checks pass."""
     runner = CliRunner()
