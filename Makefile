@@ -1,4 +1,4 @@
-.PHONY: install test test-plugin doctor verify clean lint format build-plugin sync-plugin-repo uninstall-legacy help
+.PHONY: install test test-plugin doctor verify clean lint format build-plugin sync-plugin-repo uninstall-legacy copilot-check help
 
 # Installation (local source, editable) - RECOMMENDED
 install:
@@ -22,6 +22,15 @@ test-plugin:
 doctor:
 	@echo "Running SuperClaude health check..."
 	@uv run superclaude doctor
+
+# Copilot CLI smoke checks
+copilot-check:
+	@echo "🤖 Running Copilot-friendly CLI smoke checks..."
+	@uv run superclaude --help > /dev/null && echo "   ✅ superclaude --help"
+	@uv run superclaude version > /dev/null && echo "   ✅ superclaude version"
+	@uv run superclaude install --list > /dev/null && echo "   ✅ superclaude install --list"
+	@uv run superclaude mcp --list > /dev/null && echo "   ✅ superclaude mcp --list"
+	@echo "✅ Copilot CLI smoke checks passed"
 
 # Verify Phase 1 installation
 verify:
@@ -116,6 +125,7 @@ help:
 	@echo "  make test            - Run test suite"
 	@echo "  make test-plugin     - Test pytest plugin auto-discovery"
 	@echo "  make doctor          - Run health check"
+	@echo "  make copilot-check   - Run Copilot-friendly CLI smoke checks"
 	@echo "  make lint            - Run linter (ruff check)"
 	@echo "  make format          - Format code (ruff format)"
 	@echo "  make clean           - Clean build artifacts"

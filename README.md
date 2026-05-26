@@ -187,6 +187,19 @@ For **2-3x faster** execution and **30-50% fewer tokens**, optionally install MC
 - **Without MCPs**: Fully functional, standard performance ✅
 - **With MCPs**: 2-3x faster, 30-50% fewer tokens ⚡
 
+### **GitHub Copilot CLI Friendly Workflow**
+
+If you use GitHub Copilot coding agent / CLI workflows, run this local validation loop:
+
+```bash
+make install
+make copilot-check
+make lint
+make test
+```
+
+This validates core SuperClaude CLI commands plus lint/tests before concluding changes are working.
+
 </div>
 
 ---
@@ -643,4 +656,3 @@ This project is licensed under the **MIT License** - see the [LICENSE](LICENSE) 
 [**📖 View Detailed Command Reference →**](docs/reference/commands-list.md)
 
 </details>
-
